@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rozprawka</title>
+    <link
+      rel="shortcut icon"
+      href="https://tihub.pl/assets/img/tihub.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="https://fonts.tihub.pl/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      /* body {
+        overflow: hidden;
+      } */
+      .overlay {
+        width: 100%;
+        max-width: 800px;
+        max-height: 93.15vh;
+        padding: 8rem 6rem;
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.375);
+        box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
+        border-radius: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+      }
+      .button-icon {
+        width: 32px;
+        height: 32px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      /* .overlay__description::after {
+        content: "Ilość słów: ";
+        display: block;
+        margin-top: 32px;
+        padding-top: 5px;
+        width: 100%;
+        height: 0px;
+        border-top: 1px solid black;
+        position: absolute;
+      } */
+      /* br {
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      } */
+      .button-74 {
+        /* background-color: #fbeee0; */
+        background-color: lightblue;
+        border: 2px solid #422800;
+        border-radius: 30px;
+        box-shadow: #422800 4px 4px 0 0;
+        color: #422800;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 18px;
+        padding: 0 18px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+
+      .button-74:hover {
+        /* background-color: #fff; */
+        background-color: #fbeee0;
+      }
+
+      .button-74:active {
+        box-shadow: #422800 2px 2px 0 0;
+        transform: translate(2px, 2px);
+      }
+
+      @media (min-width: 768px) {
+        .button-74 {
+          /* min-width: 120px; */
+          padding: 0 25px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="center">
+      <div class="overlay">
+        <center>
+          <audio controls>
+            <source src="rozprawka.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.</audio
+          ><br /><br /><button class="btn">
+            <i class="fa fa-download"></i> Download
+          </button>
+        </center>
+      </div>
+    </div> -->
+    <p class="overlay__description" style="margin-bottom: 0">
+      <span
+        >SELECT klient_id, COUNT(*) AS 'Ilosc zamowien' FROM Zamowienia GROUP BY
+        klient_id; </span
+      ><br /><span>grupowanie</span> <br /><br />
+      <span
+        >SELECT k.nazwa AS 'Kategoria', AVG(p.cena) AS 'Średnia cena' FROM
+        Kategorie k JOIN Produkty p ON p.kategoria_id = k.id GROUP BY
+        k.nazwa;</span
+      ><br />
+      <span>grupowanie_2</span>
+      <br /><br />
+      <span
+        >SELECT k.imie, k.nazwisko, COUNT(*) AS 'Liczba zamówień' FROM Klienci k
+        JOIN Zamowienia z ON k.id = z.klient_id GROUP BY k.id ORDER BY COUNT(*)
+        DESC;</span
+      ><br />
+      <span>grupowanie_3</span>
+      <br /><br />
+      <span
+        >SELECT Klienci.id, Klienci.imie, Klienci.nazwisko, (SELECT COUNT(*)
+        FROM Zamowienia WHERE Zamowienia.klient_id = Klienci.id) AS
+        liczba_zamowien FROM Klienci;</span
+      ><br />
+      <span>Ilość zamówień dla każdego klienta</span>
+      <br /><br />
+      <span
+        >SELECT Klienci.imie, Klienci.nazwisko, (SELECT COUNT(*) FROM Zamowienia
+        WHERE Zamowienia.klient_id = Klienci.id) AS liczba_zamowien FROM Klienci
+        ORDER BY liczba_zamowien DESC LIMIT 1;</span
+      ><br />
+      <span>Klient, który złożył najwięcej zamówień</span>
+      <br /><br />
+      <span
+        >SELECT Kategorie.nazwa, Produkty.nazwa, Produkty.cena FROM Produkty
+        JOIN Kategorie ON Kategorie.id = Produkty.kategoria_id WHERE
+        Produkty.cena = (SELECT MAX(cena) FROM Produkty WHERE kategoria_id =
+        Kategorie.id);</span
+      ><br />
+      <span>Produkty z najwyższą ceną dla każdej kategorii</span>
+      <br /><br />
+      <span
+        >SELECT AVG(cena) AS 'Srednia cena' FROM Produkty WHERE kategoria_id =
+        3;</span
+      ><br />
+      <span>średnia</span>
+      <br /><br />
+      <span
+        >SELECT Kategorie.nazwa, AVG(Produkty.cena) as srednia_cena FROM
+        Produkty JOIN Kategorie ON Produkty.kategoria_id = Kategorie.id WHERE
+        Kategorie.nazwa = 'Peryferia' GROUP BY Kategorie.nazwa;</span
+      ><br />
+      <span>średnia cena zliczana z kategorii</span>
+      <br /><br />
+      <span
+        >SELECT SUM(cena*ilosc) AS 'Wartosc zamowien' FROM Szczegoly_zamowien
+        JOIN Zamowienia ON Szczegoly_zamowien.zamowienie_id = Zamowienia.id
+        WHERE Zamowienia.klient_id = 1;</span
+      ><br />
+      <span>sumowanie</span>
+      <br /><br />
+      <span
+        >SELECT COUNT(*) AS 'Ilosc produktow' FROM Produkty WHERE kategoria_id =
+        2;</span
+      ><br />
+      <span>zliczanie ilości produktów w kategorii</span>
+      <br /><a href="mojabazadanych.sql">mojabazadanych.sql</a>
+      <a href="mojabazadanych (1).sql">mojabazadanych (1).sql</a>
+      <br />
+      <span>SET FOREIGN_KEY_CHECKS=1; </span>
+    </p>
+  </body>
+</html>
