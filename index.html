@@ -108,7 +108,7 @@
     <p class="overlay__description" style="margin-bottom: 0">
       <span
         >SELECT klient_id, COUNT(*) AS 'Ilosc zamowien' FROM Zamowienia GROUP BY
-        klient_id; </span
+        klient_id;</span
       ><br /><span>grupowanie</span> <br /><br />
       <span
         >SELECT k.nazwa AS 'Kategoria', AVG(p.cena) AS 'Średnia cena' FROM
@@ -171,6 +171,26 @@
         2;</span
       ><br />
       <span>zliczanie ilości produktów w kategorii</span>
+      <br /><br />
+      <span
+        >SELECT nazwa FROM Produkty WHERE kategoria_id = ( SELECT id FROM
+        Kategorie ORDER BY AVG(cena) ASC LIMIT 1 );</span
+      ><br />
+      <span
+        >podzap_wyświetlanie nazw produktów z kategorii o najmniejszej avg
+        cenie</span
+      >
+      <br /><br />
+      <textarea cols="80" rows="4">
+SELECT imie,nazwisko FROM Klienci WHERE ( SELECT COUNT(*) FROM
+        Zamowienia WHERE klient_id = Klienci.id ) > ( SELECT AVG(zamowien) FROM
+        ( SELECT klient_id, COUNT(*) AS zamowien FROM Zamowienia GROUP BY
+        klient_id ) AS srednia_zamowien );</textarea
+      ><br />
+      <span
+        >podzap_wyświetlenie imion i nazwisk klientów, którzy złożyli więcej
+        zamówień niż średnia liczba zamówień na wszystkich klientów</span
+      >
       <br /><a href="mojabazadanych.sql">mojabazadanych.sql</a>
       <a href="mojabazadanych (1).sql">mojabazadanych (1).sql</a>
       <br />
